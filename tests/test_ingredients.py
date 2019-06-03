@@ -15,7 +15,7 @@ class TestIngredients(unittest.TestCase):
         self.assertEqual(ing.oth_s, 20)
         self.assertEqual(ing.water, 20)
 
-    def test_raise_on_invalid_percentage(self):
+    def test_raise_on_invalid_argument_type(self):
         with self.assertRaises(TypeError):
             Ingredient('20', 20, 20, 20, 20)
         with self.assertRaises(TypeError):
@@ -26,6 +26,10 @@ class TestIngredients(unittest.TestCase):
             Ingredient(20, 20, 20, '20', 20)
         with self.assertRaises(TypeError):
             Ingredient(20, 20, 20, 20, '20')
+
+    def test_raise_on_invalid_percentage_totals(self):
+        with self.assertRaises(ValueError):
+            Ingredient(40, 20, 20, 20, 20)
 
 if __name__ == '__main__':
     unittest.main()
