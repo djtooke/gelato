@@ -5,7 +5,7 @@ from calc.ingredient import Ingredient
 class TestIngredients(unittest.TestCase):
 
     def test_class_exists(self):
-        self.assertTrue( Ingredient(20, 20, 20, 20, 20, 'Phlogiston') )
+        self.assertTrue( Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 1000) )
 
     def test_ingredient_constituents(self):
         ing = Ingredient(20, 20, 20, 20, 20, 'Phlogiston')
@@ -18,15 +18,17 @@ class TestIngredients(unittest.TestCase):
 
     def test_raise_on_invalid_argument_type(self):
         with self.assertRaises(TypeError):
-            Ingredient('20', 20, 20, 20, 20, 'Phlogiston')
+            Ingredient('20', 20, 20, 20, 20, 'Phlogiston', 1000)
         with self.assertRaises(TypeError):
-            Ingredient(20, '20', 20, 20, 20, 'Phlogiston')
+            Ingredient(20, '20', 20, 20, 20, 'Phlogiston', 1000)
         with self.assertRaises(TypeError):
-            Ingredient(20, 20, '20', 20, 20, 'Phlogiston')
+            Ingredient(20, 20, '20', 20, 20, 'Phlogiston', 1000)
         with self.assertRaises(TypeError):
-            Ingredient(20, 20, 20, '20', 20, 'Phlogiston')
+            Ingredient(20, 20, 20, '20', 20, 'Phlogiston', 1000)
         with self.assertRaises(TypeError):
-            Ingredient(20, 20, 20, 20, '20', 'Phlogiston')
+            Ingredient(20, 20, 20, 20, '20', 'Phlogiston', 1000)
+        with self.assertRaises(TypeError):
+            Ingredient(20, 20, 20, 20, 20, 'Phlogiston', '1000')
 
     def test_raise_on_invalid_percentage_totals(self):
         with self.assertRaises(ValueError):
