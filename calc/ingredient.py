@@ -1,6 +1,6 @@
 class Ingredient:
 
-    def __init__(self, fat: int, sugar: int, lm_s: int, oth_s: int, water: int):
+    def __init__(self, fat, sugar, lm_s, oth_s, water, name: str):
         '''
         Initialise ingredient object, saving constituent percentages
         :param fat:
@@ -8,6 +8,7 @@ class Ingredient:
         :param lm_s:
         :param oth_s:
         :param water:
+        :param name:
         '''
 
         self._verify_constituents(fat, sugar, lm_s, oth_s, water)
@@ -18,6 +19,7 @@ class Ingredient:
         self.oth_s = oth_s
         self.water = water
         self.dry = 100 - water
+        self.name = name
 
 
     def _verify_constituents(self, fat, sugar, lm_s, oth_s, water):
