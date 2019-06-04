@@ -19,11 +19,32 @@ class TestGelato(unittest.TestCase):
         g.add_ingredient(i_1, i_2)
         self.assertEqual(g.ingredients, [i_1, i_2])
 
-    @unittest.skip
     def test_raise_on_adding_non_ingredient(self):
         g = Gelato()
         with self.assertRaises(TypeError):
             g.add_ingredient(None)
+
+    def test_total_calculation(self):
+        g = Gelato()
+        i_1 = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 100)
+        i_2 = Ingredient(0, 0, 0, 0, 100, 'Water', 100)
+        g.add_ingredient(i_1, i_2)
+        self.assertEqual(g.totals['fat'], 20)
+        self.assertEqual(g.totals['sugar'], 20)
+        self.assertEqual(g.totals['lm_s'], 20)
+        self.assertEqual(g.totals['oth_s'], 20)
+        self.assertEqual(g.totals['water'], 120)
+        self.assertEqual(g.totals['dry'], 80)
+        self.assertEqual(g.totals['grams'], 200)
+        i_3 = Ingredient(0, 100, 0, 0, 0, 'sugar', 100)
+        g.add_ingredient(i_3)
+        self.assertEqual(g.totals['fat'], 20)
+        self.assertEqual(g.totals['sugar'], 120)
+        self.assertEqual(g.totals['lm_s'], 20)
+        self.assertEqual(g.totals['oth_s'], 20)
+        self.assertEqual(g.totals['water'], 120)
+        self.assertEqual(g.totals['dry'], 180)
+        self.assertEqual(g.totals['grams'], 300)
 
 if __name__ == '__main__':
     unittest.main()

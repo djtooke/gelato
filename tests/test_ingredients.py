@@ -8,13 +8,14 @@ class TestIngredients(unittest.TestCase):
         self.assertTrue( Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 1000) )
 
     def test_ingredient_constituents(self):
-        ing = Ingredient(20, 20, 20, 20, 20, 'Phlogiston')
+        ing = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 1000)
         self.assertEqual(ing.fat, 20)
         self.assertEqual(ing.sugar, 20)
         self.assertEqual(ing.lm_s, 20)
         self.assertEqual(ing.oth_s, 20)
         self.assertEqual(ing.water, 20)
         self.assertEqual(ing.name, 'Phlogiston')
+        self.assertEqual(ing.grams, 1000)
 
     def test_raise_on_invalid_argument_type(self):
         with self.assertRaises(TypeError):
