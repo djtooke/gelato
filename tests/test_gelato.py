@@ -46,5 +46,26 @@ class TestGelato(unittest.TestCase):
         self.assertEqual(g.totals['dry'], 180)
         self.assertEqual(g.totals['grams'], 300)
 
+    def test_percs_calculation(self):
+        g = Gelato()
+        i_1 = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 100)
+        i_2 = Ingredient(0, 0, 0, 0, 100, 'Water', 100)
+        g.add_ingredient(i_1)
+        self.assertEqual(g.percs['fat'], 20)
+        self.assertEqual(g.percs['sugar'], 20)
+        self.assertEqual(g.percs['lm_s'], 20)
+        self.assertEqual(g.percs['oth_s'], 20)
+        self.assertEqual(g.percs['water'], 20)
+        self.assertEqual(g.percs['dry'], 80)
+        g.add_ingredient(i_2)
+        self.assertEqual(g.percs['fat'], 10)
+        self.assertEqual(g.percs['sugar'], 10)
+        self.assertEqual(g.percs['lm_s'], 10)
+        self.assertEqual(g.percs['oth_s'], 10)
+        self.assertEqual(g.percs['water'], 60)
+        self.assertEqual(g.percs['dry'], 40)
+        with self.assertRaises(KeyError):
+            g.percs['grams']
+
 if __name__ == '__main__':
     unittest.main()
