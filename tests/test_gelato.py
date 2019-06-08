@@ -2,6 +2,7 @@ import unittest
 
 from calc.gelato import Gelato
 from calc.ingredient import Ingredient
+from calc.evaluate import Result
 
 class TestGelato(unittest.TestCase):
 
@@ -66,6 +67,26 @@ class TestGelato(unittest.TestCase):
         self.assertEqual(g.percs['dry'], 40)
         with self.assertRaises(KeyError):
             g.percs['grams']
+
+    def test_evaluation(self):
+        g = Gelato()
+        i_1 = Ingredient(9.1, 16.8, 10.5, 0.5, 63.1, 'Gorgonzola & Honey Gelato', 1000)
+        g.add_ingredient(i_1)
+        self.assertEqual(g.results, {'fat': Result.OKAY,
+                                     'sugar': Result.OKAY,
+                                     'lm_s': Result.OKAY,
+                                     'oth_s': Result.OKAY,
+                                     'water': Result.OKAY,
+                                     'dry': Result.OKAY})
+        g = Gelato()
+        i_2 = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 1000)
+        g.add_ingredient(i_2)
+        self.assertEqual(g.results, {'fat': Result.TOO_HIGH,
+                                     'sugar': Result.OKAY,
+                                     'lm_s': Result.TOO_HIGH,
+                                     'oth_s': Result.OKAY,
+                                     'water': Result.TOO_LOW,
+                                     'dry': Result.TOO_HIGH})
 
 if __name__ == '__main__':
     unittest.main()

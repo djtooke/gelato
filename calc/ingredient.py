@@ -41,6 +41,6 @@ class Ingredient:
             raise TypeError('Constituent percentages and grams must be integers or floats')
 
         # Check sum of constituent percentages is 100%
-        perc = sum([fat, sugar, lm_s, oth_s, water])
-        if perc != 100:
-            raise ValueError('Constituent values add up to {}% rather than 100%'.format(perc))
+        total = sum([fat, sugar, lm_s, oth_s, water])
+        if total != 100:
+            raise ValueError('Constituent values add up to {}% rather than 100%'.format(total))
