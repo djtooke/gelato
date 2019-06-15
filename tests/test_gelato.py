@@ -116,6 +116,21 @@ class TestGelato(unittest.TestCase):
         self.assertEqual(g.totals['dry'], 80)
         self.assertEqual(g.totals['grams'], 100)
 
+    def test_update_quantity(self):
+        g = Gelato()
+        i_1 = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 100)
+        i_2 = Ingredient(0, 0, 0, 0, 100, 'Water', 100)
+        g.add_ingredient(i_1)
+        g.add_ingredient(i_2)
+        g.update_quantity(i_1, 200)
+        self.assertEqual(g.totals['fat'], 40)
+        self.assertEqual(g.totals['sugar'], 40)
+        self.assertEqual(g.totals['lm_s'], 40)
+        self.assertEqual(g.totals['oth_s'], 40)
+        self.assertEqual(g.totals['water'], 140)
+        self.assertEqual(g.totals['dry'], 160)
+        self.assertEqual(g.totals['grams'], 300)
+
 
     def test_all(self):
         g = Gelato()

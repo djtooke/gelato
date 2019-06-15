@@ -35,6 +35,11 @@ class TestIngredients(unittest.TestCase):
         with self.assertRaises(ValueError):
             Ingredient(40, 20, 20, 20, 20, 'Phlogiston')
 
+    def test_update_quantity(self):
+        ing = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 1000)
+        self.assertEqual(ing.grams, 1000)
+        ing.update_quantity(500)
+        self.assertEqual(ing.grams, 500)
 
 
 if __name__ == '__main__':

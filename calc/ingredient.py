@@ -44,3 +44,11 @@ class Ingredient:
         total = sum([fat, sugar, lm_s, oth_s, water])
         if total != 100:
             raise ValueError('Constituent values add up to {}% rather than 100%'.format(total))
+
+
+    def update_quantity(self, grams):
+
+        if not isinstance(grams, (int, float)):
+            raise TypeError('Quantity must be integer or float')
+        self.grams = grams
+
