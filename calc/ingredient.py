@@ -13,7 +13,6 @@ class Ingredient:
         '''
 
         self._verify_constituents(fat, sugar, lm_s, oth_s, water, grams)
-
         self.fat = fat
         self.sugar = sugar
         self.lm_s = lm_s
@@ -23,6 +22,8 @@ class Ingredient:
         self.name = name
         self.grams = grams
 
+    def __repr__(self):
+        return '<Ingredient object {}, {} grams>'.format(self.name, self.grams)
 
     def _verify_constituents(self, fat, sugar, lm_s, oth_s, water, grams):
         '''
