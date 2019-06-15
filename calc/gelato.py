@@ -16,12 +16,22 @@ class Gelato:
     def add_ingredient(self, *args):
         [self._verify_ingredient(ing) for ing in args]
         self.ingredients.extend(args)
-        self._reset_counters()
-        self.amend_totals()
-        self.amend_percentages()
-        self._evaluate()
+        self._recalculate_all()
 
-    def amend_totals(self):
+    def remove_ingredient(self, ing):
+        try:
+            self.ingredients.remove(ing)
+        except ValueError:
+            print('{} was not in list of ingredients'.format(ing))
+        self._recalculate_all()
+
+    def _recalculate_all(self):
+        self._reset_counters()
+        self._amend_totals()
+        self._amend_percentages()
+        self._evaluate_results()
+
+    def _amend_totals(self):
         for ing in self.ingredients:
             self.totals['fat'] += ing.fat / 100 * ing.grams
             self.totals['sugar'] += ing.sugar / 100 * ing.grams
@@ -30,16 +40,18 @@ class Gelato:
             self.totals['water'] += ing.water / 100 * ing.grams
             self.totals['grams'] += ing.grams
         self.totals['dry'] = self.totals['grams'] - self.totals['water']
+        self._round_numbers(self.totals)
 
-    def amend_percentages(self):
-        self.percs = {k: round(v / self.totals['grams'] * 100, 1) for k, v in self.totals.items()}
+    def _amend_percentages(self):
+        self.percs = {k: v / self.totals['grams'] * 100 for k, v in self.totals.items()}
         del self.percs['grams']
+        self._round_numbers(self.percs)
 
     def _verify_ingredient(self, ing):
         if type(ing) != Ingredient:
             raise TypeError('Attempted to add an ingredient that was not of type Ingredient: {}'.format(ing))
 
-    def _evaluate(self):
+    def _evaluate_results(self):
         for k, v in self.percs.items():
             if v < AIM[k][0]:
                 self.results[k] = Result(0)
@@ -53,3 +65,7 @@ class Gelato:
         self.totals = copy.copy(self.percs)
         self.totals['grams'] = 0
         self.results = copy.copy(self.percs)
+
+    def _round_numbers(self, dict):
+        for k, v in dict.items():
+            dict[k] = round(v, 1)

@@ -88,5 +88,72 @@ class TestGelato(unittest.TestCase):
                                      'water': Result.TOO_LOW,
                                      'dry': Result.TOO_HIGH})
 
+    def test_remove_ingredient(self):
+        g = Gelato()
+        i_1 = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 100)
+        i_2 = Ingredient(0, 0, 0, 0, 100, 'Water', 100)
+        g.add_ingredient(i_1)
+        g.add_ingredient(i_2)
+        self.assertEqual(g.totals['fat'], 20)
+        self.assertEqual(g.totals['sugar'], 20)
+        self.assertEqual(g.totals['lm_s'], 20)
+        self.assertEqual(g.totals['oth_s'], 20)
+        self.assertEqual(g.totals['water'], 120)
+        self.assertEqual(g.totals['dry'], 80)
+        self.assertEqual(g.totals['grams'], 200)
+        g.remove_ingredient(i_2)
+        self.assertEqual(g.percs['fat'], 20)
+        self.assertEqual(g.percs['sugar'], 20)
+        self.assertEqual(g.percs['lm_s'], 20)
+        self.assertEqual(g.percs['oth_s'], 20)
+        self.assertEqual(g.percs['water'], 20)
+        self.assertEqual(g.percs['dry'], 80)
+        self.assertEqual(g.totals['fat'], 20)
+        self.assertEqual(g.totals['sugar'], 20)
+        self.assertEqual(g.totals['lm_s'], 20)
+        self.assertEqual(g.totals['oth_s'], 20)
+        self.assertEqual(g.totals['water'], 20)
+        self.assertEqual(g.totals['dry'], 80)
+        self.assertEqual(g.totals['grams'], 100)
+
+
+    def test_all(self):
+        g = Gelato()
+        milk = Ingredient(1.6, 0, 9, 0, 89.4, 'Milk', 1000)
+        gorgonzola = Ingredient(28, 0.1, 20, 2, 49.9, 'Gorgonzola', 280)
+        honey = Ingredient(0, 80, 0, 0, 20, 'Honey', 100)
+        sucrose = Ingredient(0, 100, 0, 0, 0, 'Sucrose', 190)
+        dextrose = Ingredient(0, 92, 0, 0, 8, 'Dextrose', 50)
+        lmp = Ingredient(0, 0, 97, 0, 3, 'LMP', 40)
+        stabilisers = Ingredient(0, 0, 0, 100, 0, 'Stabilisers', 4)
+        cream = Ingredient(35, 0, 6, 0, 59, 'Cream', 220)
+
+        g.add_ingredient(milk, gorgonzola, honey, sucrose)
+        g.add_ingredient(dextrose, lmp)
+        g.add_ingredient(stabilisers)
+        g.add_ingredient(cream)
+
+        self.assertEqual(g.ingredients, [milk, gorgonzola, honey, sucrose, dextrose, lmp, stabilisers, cream])
+        self.assertEqual(g.results, {'fat': Result.OKAY,
+                                     'sugar': Result.OKAY,
+                                     'lm_s': Result.OKAY,
+                                     'oth_s': Result.OKAY,
+                                     'water': Result.OKAY,
+                                     'dry': Result.OKAY})
+        self.assertEqual(g.percs, {'fat': 9.1,
+                                     'sugar': 16.8,
+                                     'lm_s': 10.5,
+                                     'oth_s': 0.5,
+                                     'water': 63.1,
+                                     'dry': 36.9})
+
+        self.assertEqual(g.totals, {'fat': 171.4,
+                                     'sugar': 316.3,
+                                     'lm_s': 198.0,
+                                     'oth_s': 9.6,
+                                     'water': 1188.7,
+                                     'dry': 695.3,
+                                     'grams': 1884})
+
 if __name__ == '__main__':
     unittest.main()
