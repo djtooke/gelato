@@ -1,8 +1,7 @@
-from calc.ingredient import Ingredient
+from calc.ingredient import Ingredient, CONSTITUENTS
 from calc.evaluate import AIM, Result
 import copy
 
-CONSTITUENTS = ['fat', 'sugar', 'lm_s', 'oth_s', 'water', 'dry']
 
 class Gelato:
 
@@ -66,9 +65,9 @@ class Gelato:
             else:
                 self.results[k] = Result(1)
 
-    def _round_numbers(self, dict):
-        for k, v in dict.items():
-            dict[k] = round(v, 1)
+    def _round_numbers(self, _dict):
+        for k, v in _dict.items():
+            _dict[k] = round(v, 1)
 
     def _verify_ingredient(self, ing):
         if type(ing) != Ingredient:

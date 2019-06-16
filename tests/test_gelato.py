@@ -120,8 +120,7 @@ class TestGelato(unittest.TestCase):
         g = Gelato()
         i_1 = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 100)
         i_2 = Ingredient(0, 0, 0, 0, 100, 'Water', 100)
-        g.add_ingredient(i_1)
-        g.add_ingredient(i_2)
+        g.add_ingredient(i_1, i_2)
         g.update_quantity(i_1, 200)
         self.assertEqual(g.totals['fat'], 40)
         self.assertEqual(g.totals['sugar'], 40)
@@ -131,6 +130,20 @@ class TestGelato(unittest.TestCase):
         self.assertEqual(g.totals['dry'], 160)
         self.assertEqual(g.totals['grams'], 300)
 
+    def test_ingredient_already_added(self):
+        g = Gelato()
+        i_1 = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 100)
+        g.add_ingredient(i_1)
+        with self.assertRaises(ValueError):
+            g.add_ingredient(i_1)
+
+    def test_ingredient_not_yet_added(self):
+        g = Gelato()
+        i_1 = Ingredient(20, 20, 20, 20, 20, 'Phlogiston', 100)
+        i_2 = Ingredient(0, 0, 0, 0, 100, 'Water', 100)
+        g.add_ingredient(i_1)
+        with self.assertRaises(ValueError):
+            g.remove_ingredient(i_2)
 
     def test_all(self):
         g = Gelato()

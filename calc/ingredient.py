@@ -1,3 +1,5 @@
+CONSTITUENTS = ['fat', 'sugar', 'lm_s', 'oth_s', 'water', 'dry']
+
 class Ingredient:
 
     def __init__(self, fat, sugar, lm_s, oth_s, water, name: str, grams=0):

@@ -40,6 +40,9 @@ class TestIngredients(unittest.TestCase):
         self.assertEqual(ing.grams, 1000)
         ing.update_quantity(500)
         self.assertEqual(ing.grams, 500)
+        with self.assertRaises(TypeError):
+            ing.update_quantity('Not a number')
+
 
 
 if __name__ == '__main__':
