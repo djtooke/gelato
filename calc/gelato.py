@@ -71,7 +71,7 @@ class Gelato:
 
     def _verify_ingredient(self, ing):
         if type(ing) != Ingredient:
-            raise TypeError('Attempted to add an ingredient that was not of type Ingredient: {}'.format(ing))
+            raise TypeError('Object is not of type Ingredient: {}'.format(ing))
 
     def _verify_ingredient_added(self, ing):
         if ing not in self.ingredients:
@@ -81,3 +81,68 @@ class Gelato:
         if ing in self.ingredients:
             raise ValueError('{} already in list of ingredients'.format(ing))
 
+    def print_all(self):
+        if not self.ingredients:
+            self._warn_empty_ingredients()
+            return None
+        self.print_ingredients()
+        self._print_spacer()
+        self.print_totals()
+        self._print_spacer()
+        self.print_percs()
+        self._print_spacer()
+        self.print_results()
+
+    def print_ingredients(self):
+        if self.ingredients:
+            for i in self.ingredients:
+                print('{}: {}g'.format(i.name, i.grams))
+        else:
+            self._warn_empty_ingredients()
+
+    def print_totals(self):
+        if self.ingredients:
+            print('Totals of constituents in grams:')
+            print('    Sugar: {}'.format(self.totals['sugar']))
+            print('    Fat: {}'.format(self.totals['fat']))
+            print('    Lean milk solids: {}'.format(self.totals['lm_s']))
+            print('    Other solids: {}'.format(self.totals['oth_s']))
+            print('    Water: {}'.format(self.totals['water']))
+            print('    Dry residual mass: {}'.format(self.totals['dry']))
+            print('')
+            print('Total grams: {}'.format(self.totals['grams']))
+        else:
+            self._warn_empty_ingredients()
+
+    def print_percs(self):
+        if self.ingredients:
+            print('Percentages of constituents:')
+            print('    Sugar: {}%'.format(self.percs['sugar']))
+            print('    Fat: {}%'.format(self.percs['fat']))
+            print('    Lean milk solids: {}%'.format(self.percs['lm_s']))
+            print('    Other solids: {}%'.format(self.percs['oth_s']))
+            print('    Water: {}%'.format(self.percs['water']))
+            print('    Dry residual mass: {}%'.format(self.percs['dry']))
+        else:
+            self._warn_empty_ingredients()
+
+    def print_results(self):
+        if self.ingredients:
+            print('Evaluation of constituent percentages:')
+            print('    Sugar: {}'.format(self.results['sugar'].name))
+            print('    Fat: {}'.format(self.results['fat'].name))
+            print('    Lean milk solids: {}'.format(self.results['lm_s'].name))
+            print('    Other solids: {}'.format(self.results['oth_s'].name))
+            print('    Water: {}'.format(self.results['water'].name))
+            print('    Dry residual mass: {}'.format(self.results['dry'].name))
+        else:
+            self._warn_empty_ingredients()
+
+    def _print_spacer(self):
+        print('')
+        print('==========')
+        print('')
+
+    def _warn_empty_ingredients(self):
+        print("No ingredients added. Your gelato doesn't exist yet")
+        

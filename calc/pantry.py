@@ -69,4 +69,8 @@ class Pantry:
             raise ValueError('Ingredient {} does not exist in the pantry'.format(name))
         return Ingredient(name=name, grams=grams, **ing)
 
+    def list_ingredients(self):
+        print('List of available ingredients:')
+        for k in self.store.keys():
+            print(k)
 
