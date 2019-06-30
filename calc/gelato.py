@@ -95,8 +95,9 @@ class Gelato:
 
     def print_ingredients(self):
         if self.ingredients:
+            print("Ingredients:")
             for i in self.ingredients:
-                print('{}: {}g'.format(i.name, i.grams))
+                print('    {}: {}g'.format(i.name, i.grams))
         else:
             self._warn_empty_ingredients()
 
@@ -145,4 +146,4 @@ class Gelato:
 
     def _warn_empty_ingredients(self):
         print("No ingredients added. Your gelato doesn't exist yet")
-        
+
