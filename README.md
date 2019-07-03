@@ -2,6 +2,8 @@
 
 A calculator for formulating perfect gelato recipes! In object-oriented Python.
 
+This is a work in progress, but for now it works in (very) MVP form provided you're happy to interact with python objects in a REPL. This is an early stage of a reasonably 'agile' product, which will get better with every iteration, so watch this space...!
+
 ### Gelato basics
 
 In order to ensure that your gelato will set properly when you freeze it, its constituents should be balanced within certain ranges:
@@ -36,11 +38,11 @@ To get an ingredient object from the pantry, use the `get_ingredient` method, pa
 
 `cream = p.get_ingredient('cream 35%', 220)`
 
-This will return an ingredient object, which contains a series of attributes that detail its percentages of `fat`, `sugar`, `lm_s` (lean milk solids, `oth_s` (other solids), `water` and `dry` mass. These are pre-populated by the pantry on instantiation.
+This will return an ingredient object, which contains a series of attributes that detail its percentages of `fat`, `sugar`, `lm_s` (lean milk solids), `oth_s` (other solids), `water` and `dry` mass. These are pre-populated by the pantry on instantiation.
 
-Alternatively, if you want to create an ingredient from scratch and know the percentages of its constituent `fat`, `sugar`, `lm_s`, `oth_s`, and `water` percentages, you can instantiate an `Ingredient` object with these values, followed by its name as a string and the grams:
+Alternatively, if you want to create an ingredient from scratch and know the percentages of its constituent `fat`, `sugar`, `lm_s`, `oth_s`, and `water` percentages, you can instantiate an `Ingredient` object with these values, followed by its name as a string and the number of grams:
 
-`honey = Ingredient(0, 80, 0, 0, 20, 'Honey', 100)'
+`honey = Ingredient(0, 80, 0, 0, 20, 'Honey', 100)`
 
 These constituent percentages can be integers or floats (or a combination) but must add up to 100%. `dry` mass is calculated automatically. 
  
@@ -71,4 +73,4 @@ These methods will automatically recalculate the percentages, totals, and result
 
 #### Coming soon!
 
-The next step will be to transform this calculator into the backend of a web based app, allowing you to create and add ingredients with a GUI.
+Next I'm planning to transform this calculator into the model/backend of a web based app, allowing you to create and add ingredients with a GUI.
